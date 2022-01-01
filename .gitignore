@@ -1,0 +1,6 @@
+.idea
+secrets/*
+
+__pycache__/
+
+src/db.sqlite3
