@@ -5,8 +5,6 @@ services:
     image: jonasal/nginx-certbot:latest
     restart: unless-stopped
     container_name: ncert
-    environment:
-      - CERTBOT_EMAIL
     env_file:
       - secrets/nginx.env
     ports:
@@ -23,7 +21,7 @@ services:
       dockerfile: Dockerfile
     image: aggregator
     hostname: web
-    command: sh -c "python manage.py collectstatic --noinput && python manage.py migrate --noinput && hypercorn jobs.asgi:application -m 777 --workers 1 --bind unix:/app/jobs.sock"
+    command: sh -c "python manage.py collectstatic --noinput && python manage.py migrate --noinput && hypercorn backend.asgi:application -m 777 --workers 1 --bind unix:/app/backend.sock"
     volumes:
       - ./src:/app
 
